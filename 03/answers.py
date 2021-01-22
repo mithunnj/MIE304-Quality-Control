@@ -20,12 +20,34 @@ df = pd.read_csv(DATA_DIR)
 # Command line argument parser
 def parse_arguments():
     """Parse Arguments."""
+    def str2bool(v):
+        if isinstance(v, bool):
+            return v
+        if v.lower() in ('yes', 'true', 't', 'y', '1'):
+            return True
+        elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+            return False
+        else:
+            raise argparse.ArgumentTypeError('Boolean value expected.')
+
     parser = argparse.ArgumentParser()
 
     # Add command line arguments here
     parser.add_argument("--viz", type=str2bool, nargs='?',
                         const=True, default=False,
-                        help="Activate test mode for social features compute.")
+                        help="Activate visualization of results.")
+    parser.add_argument("--question_1", type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="Run question #1.")
+    parser.add_argument("--question_2", type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="Run question #2.")
+    parser.add_argument("--question_3", type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="Run question #3.")
+    parser.add_argument("--question_4", type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="Run question #4.")
 
     return parser.parse_args()
 
@@ -69,11 +91,29 @@ def q1():
 
     return
 
+def q2():
+    '''
+    Question #2: 
+
+    - Similar question: https://courses.lumenlearning.com/wmopen-concepts-statistics/chapter/hypothesis-test-for-a-population-mean-1-of-5/
+    '''
+
+
 
 def main():
+    args = parse_arguments()
 
     # Run through all the questions
-    q1()
+    if args.question_1:
+        q1()
+    elif args.question_2:
+        q2()
+    elif args.question_3:
+        q3()
+    elif args.question_4:
+        q4()
+    else:
+        print("Pass in valid arguments.")
 
     return
 
